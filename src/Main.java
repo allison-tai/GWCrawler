@@ -9,6 +9,7 @@ import com.google.firebase.database.*;
 import javax.xml.crypto.Data;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main {
     public static void main( String[] args )
@@ -22,6 +23,11 @@ public class Main {
 
         // TODO: Populate the game list using combination of Bestbuy and Steam?
 
+        try {
+            Crawler.processPage("http://www.mit.edu/");
+        }
+        catch (IOException e) {
+        }
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setServiceAccount(new FileInputStream("src/GamerWatch-ac8c55766009.json"))
