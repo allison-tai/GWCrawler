@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "gamerwatch-71e5b",
+  "private_key_id": "ac8c55766009f5b5d8ed6bd55110d64b9f4293cf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQDOXgZMnjTOXDID\ncsUxY54gae7XrRfeAE7+9zJ2ipNhPNcW7PVzk7UKrhPZx/WrQCKMicEEZHDLgbzN\nPOEOkIgjLUak/wpbzStGiZHKFhh0EiI7PciFEizVFT74kkZHWK6671bHnOA00DfY\n6HYyLt/i6OeOJXpRmtgqdGeEONUs/mkWr4CrE1R3bWeq+4QEAJaxoRSxJod8BpL/\ngwq4cLAkwJuFrk0kTGabQ+quCf8GlAImfmjOxql3r364RTVAkRyUeqRP5Ix0V5Be\nCwu1h1UHExYzMVlggNV/8/W46bggTkxEn28Zjw/v1LHI3cMmTwCYc+iszgrrqWVY\nbQdazTzLAgMBAAECggEBAJd1FIR4/GKT8bTsL+O+rBg4By5NgJ3TdibUgDnWHLKZ\n93aA9OgdeRrchf8pLZnBGVox4/J4UPxbPJkY3EhXNUM0AIwqDo0vuFotr001CD9v\n66W1A4z+uN6umCfRGzlT0fGqpPMdpMO+Ka7NdaoBExozO3bs9Kgd0BbglfTJzVMW\nF8+XG9Mi4jZ8gd9HSezXmzfnynyG3SMCTGd1DpWr5TUrbCghL9dhaNZJcwOZpZVF\n97BxZ/xsf8PmRFfw7VOkW81h+bxLlgtGQljbdoQe2gRd8b7mv504UHWZeslpnYGH\nCjWRkyBIcN6qp+V0Je7gdfJMwQJ43JBSt5dp51NkgWkCgYEA6qL2Iim+yn/1S5HF\nncE32qilAKNnyF/81C3xYr3tS2/FAvMvUw0QSdyoMTvhoQDYiCfK1N4qqvfcblxX\ndk71d6OSBvNxGcWU76MMO3selZekSHYlZ/MDVH5nM+6ZTTgwIdcsztFUiioJIge9\n62mJzBVOoDUovi0EWkts6ApCM6UCgYEA4SglpnkIwz/NLi3+VT3wHULcJGGIeI6a\n00YUBZAgoIenfYl9HpwYb3ShoBLxSmIhfYbbg7qYcs0jB/AiMj6Inq2SRlmNzBKG\ntfXxBA86GLuMTLAomemQvZn+OkHPPTgGWCH3nhBAGCBPRrW1K4WTTbx4ELr+18jy\ngVQseDZdA68CgYEAn9l1pcCa4opaKqmc3+SKkMTj5JNuWOxL6qGCGasaxpHWvjO+\nwe3ccvWJAEGzbWSOH/Q8EtloaCGEYws16rvQLzmYenPPUadx1/BUnRE7vN4aZeNX\niIHeeunClXavqhPldqiJNj0WQypwHmb31DGKVycM8chFgYpZtMo937ddcqECgYEA\nyYbopCdjO3eIy9Oo+F0W5OnqJroRr25cj8wCsbP+MBEbThbYoaQvjtsCq0cpJ13M\nAhHJuw8x0ldgCoPZ58Tm/bf32/XeIBFY99bpYavLYUXE3wMxZAmVXs9NqJEsz+us\naggFHToIVE/fBTgwr4LAhOyzPq5Q2Y1n2XAg2Xw3JssCgYEAzAt3rGAMR4jQ85Km\nZHFrP2/qJz5cnnvVYM5vpi+3CyXiN+KzLH5q8IvEQx2uKbxfjYxj98pFxtUi9aI1\no49B6O+eAE5AENbO7pzn+eU1fF5hAIeRUnc4UAzJU1IzfjrChquVPaz4nkCikyos\n96F8F2CcOLztQ5ouIrZKxNFFSBY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "gamerwatch@gamerwatch-71e5b.iam.gserviceaccount.com",
+  "client_id": "107417832996029900306",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gamerwatch%40gamerwatch-71e5b.iam.gserviceaccount.com"
+}
