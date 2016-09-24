@@ -16,7 +16,7 @@ public class Main {
 
         System.out.println("YAY");
         try {
-            Crawler.processPage("http://www.mit.edu/");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
         }
         catch (IOException e) {
         }
