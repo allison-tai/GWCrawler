@@ -24,7 +24,7 @@ public class Main {
         // TODO: Populate the game list using combination of Bestbuy and Steam?
 
         try {
-            Crawler.processPage("http://www.mit.edu/");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
         }
         catch (IOException e) {
         }
