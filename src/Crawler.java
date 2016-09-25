@@ -57,16 +57,12 @@ public class Crawler {
                 if (!saleInfo.isEmpty())
                     regPrice = Double.parseDouble((saleInfo.select("span").last().text().replace('$', Character.MIN_VALUE)) + curPrice);
                 String title = productName.replaceAll("\\(.*\\)", "(" + platform + ")");
-<<<<<<< HEAD
-                Game game = new Game(title, platform, curPrice, regPrice);
-                game.setCover(imageToString(getImage(imageUrl)));
-=======
-                Game game = new Game(title, title, platform, price);
+                Game game = new Game(title, title, platform, regPrice);
+                game.addSalesPrice("bestbuy", curPrice);
                 BufferedImage img = getImage(imageUrl);
                 if (img != null) {
                     game.setCover(imageToString(img));
                 }
->>>>>>> d382e46f7d2484075a199561a56213180522ff27
                 games.add(game);
             }
         }

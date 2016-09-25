@@ -7,18 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
+    
 public class Main {
     public static void main( String[] args )
     {
         List<Game> games = new LinkedList<Game>();
         try {
             // TODO: Populate the Steam list
-<<<<<<< HEAD
-          //  Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
-=======
-            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win", games, "PC");
->>>>>>> d382e46f7d2484075a199561a56213180522ff27
+
+            //Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win", games, "PC");
             // TODO: Populate BestBuy list
             Crawler.bbCrawl(games);
         }
@@ -35,8 +32,8 @@ public class Main {
             final DatabaseReference ref = FirebaseDatabase
                     .getInstance()
                     .getReference("amazon");
-            ref.child("Deus Ex: Mankind Divided" + " (" + "Playstation 4" + ")").setValue(new Game("Deus Ex: Mankind Divided", "Playstation 4", 59.99, 49.99));
-            ref.child("Until Dawn" + " (" + "Playstation 4" + ")").setValue(new Game("Until Dawn", "Playstation 4", 29.00, 19.99));
+            //ref.child("Deus Ex: Mankind Divided" + " (" + "Playstation 4" + ")").setValue(new Game("Deus Ex: Mankind Divided", "Playstation 4", 59.99, 49.99));
+            //ref.child("Until Dawn" + " (" + "Playstation 4" + ")").setValue(new Game("Until Dawn", "Playstation 4", 29.00, 19.99));
 
             final DatabaseReference bbRef = FirebaseDatabase
                     .getInstance()
@@ -61,7 +58,6 @@ public class Main {
                 }
 
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
                 }
 
                 public void onCancelled(DatabaseError databaseError) {
