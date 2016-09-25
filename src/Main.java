@@ -1,7 +1,3 @@
-/**
- * Created by Lily on 2016-09-24.
- */
-
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.*;
@@ -34,8 +30,17 @@ public class Main {
         // TODO: Populate the Steam list
         // TODO: Populate the game list using combination of Bestbuy and Steam?
 
+<<<<<<< HEAD
+=======
+        try {
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
+
+            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
+        }
+>>>>>>> 70441675d871ffa8e73fb38bb5c1574cf27a12e7
         catch (IOException e) {
         }
+
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setServiceAccount(new FileInputStream("src/GamerWatch-ac8c55766009.json"))
