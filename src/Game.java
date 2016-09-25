@@ -6,11 +6,11 @@ import java.util.TreeMap;
  */
 public class Game {
         String _title;
-        long _price;
+        double _price;
         String _cover;
         String _platform;
 
-        public Game(String title, long price, String platform) {
+        public Game(String title, double price, String platform) {
             _title = title;
             _price = price;
             _platform = platform;
@@ -24,7 +24,7 @@ public class Game {
             return _title;
         }
 
-        public long getPrice() {
+        public double getPrice() {
             return _price;
         }
 
