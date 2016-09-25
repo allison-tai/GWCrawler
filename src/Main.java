@@ -19,13 +19,13 @@ public class Main {
 
         // TODO: Populate the game list using combination of Bestbuy and Steam?
 
-        try {
-            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
+        //try {
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
 
-            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
-        }
-        catch (IOException e) {
-        }
+            //Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
+        //}
+        //catch (IOException e) {
+        //}
 
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -35,12 +35,36 @@ public class Main {
             FirebaseApp.initializeApp(options);
 
             // As an admin, the app has access to read and write all data, regardless of Security Rules
-            DatabaseReference ref = FirebaseDatabase
+            final DatabaseReference ref = FirebaseDatabase
                     .getInstance()
                     .getReference("amazon");
             ref.child("Deus Ex: Mankind Divided" + " (" + "Playstation 4" + ")").setValue(new Game("Deus Ex: Mankind Divided", 59.99, "Playstation 4"));
             ref.child("Until Dawn" + " (" + "Playstation 4" + ")").setValue(new Game("Until Dawn", 29.00, "Playstation 4"));
 
+
+            ref.orderByChild("title").addChildEventListener(new ChildEventListener() {
+
+                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                    Game game = dataSnapshot.getValue(Game.class);
+                    System.out.println(dataSnapshot.getKey() + " has platform " + game.getPlatform());
+                }
+
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
         catch (FileNotFoundException e) {
             System.out.println("Cannot find the file :(");

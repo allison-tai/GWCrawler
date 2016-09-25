@@ -10,6 +10,10 @@ public class Game {
         String _cover;
         String _platform;
 
+        public Game() {
+
+        }
+
         public Game(String title, double price, String platform) {
             _title = title;
             _price = price;
@@ -18,6 +22,18 @@ public class Game {
 
         public void setCover(String cover) {
             _cover = cover;
+        }
+
+        public void setTitle(String title) {
+            _title = title;
+        }
+
+        public void setPrice(double price) {
+            _price = price;
+        }
+
+        public void setPlatform(String platform) {
+            _platform = platform;
         }
 
         public String getTitle() {
