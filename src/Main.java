@@ -14,7 +14,11 @@ public class Main {
         List<Game> games = new LinkedList<Game>();
         try {
             // TODO: Populate the Steam list
+<<<<<<< HEAD
           //  Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
+=======
+            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win", games, "PC");
+>>>>>>> d382e46f7d2484075a199561a56213180522ff27
             // TODO: Populate BestBuy list
             Crawler.bbCrawl(games);
         }
@@ -38,10 +42,8 @@ public class Main {
                     .getInstance()
                     .getReference("game");
                 for (Game game: games) {
-                bbRef.child(game.getTitle()).setValue(game);
-            }
-
-
+                    bbRef.child(game.getTitle()).setValue(game);
+                }
 
             ref.orderByChild("title").addChildEventListener(new ChildEventListener() {
 

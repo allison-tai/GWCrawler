@@ -1,21 +1,25 @@
 /**
  * Created by Allison on 2016-09-24.
  */
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.*;
 
-import org.apache.commons.io.IOUtils;
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.xml.bind.DatatypeConverter;
 
 public class Crawler {
@@ -53,8 +57,16 @@ public class Crawler {
                 if (!saleInfo.isEmpty())
                     regPrice = Double.parseDouble((saleInfo.select("span").last().text().replace('$', Character.MIN_VALUE)) + curPrice);
                 String title = productName.replaceAll("\\(.*\\)", "(" + platform + ")");
+<<<<<<< HEAD
                 Game game = new Game(title, platform, curPrice, regPrice);
                 game.setCover(imageToString(getImage(imageUrl)));
+=======
+                Game game = new Game(title, title, platform, price);
+                BufferedImage img = getImage(imageUrl);
+                if (img != null) {
+                    game.setCover(imageToString(img));
+                }
+>>>>>>> d382e46f7d2484075a199561a56213180522ff27
                 games.add(game);
             }
         }
@@ -73,13 +85,64 @@ public class Crawler {
     }
 
 
-    public static BufferedImage getImage(String url) throws IOException{
-        BufferedImage image = ImageIO.read(new URL(url));
-        return image;
+    public static BufferedImage getImage(String url) {
+        try {
+            BufferedImage image = ImageIO.read(new URL(url));
+            return image;
+        }
+
+        catch (IOException e){
+//            System.out.println("ERROR in getImage: " + url);
+//            System.out.println(e);
+//            try {
+//                InputStream stream = new ByteArrayInputStream(url.getBytes(StandardCharsets.UTF_8));
+//                //BufferedImage img =
+//                //        JPEGCodec.createJPEGDecoder(stream).decodeAsBufferedImage();
+//                BufferedImage img = convertImage(stream);
+//                System.out.println("Successfully decoded into an image");
+//                return img;
+//            } catch (Exception e2) {
+//                System.out.println("Failed again");
+//            }
+            return null;
+
+        }
+
     }
 
-    public static void processPageSteam(String url) throws IOException {
+    public static BufferedImage convertImage(InputStream s) throws IOException {
+        //Find a suitable ImageReader
+        Iterator readers = ImageIO.getImageReadersByFormatName("PNG");
+        ImageReader reader = null;
+        while(readers.hasNext()) {
+            reader = (ImageReader)readers.next();
+            if(reader.canReadRaster()) {
+                break;
+            }
+        }
+
+        //Stream the image file (the original CMYK image)
+        ImageInputStream input =   ImageIO.createImageInputStream(s);
+        reader.setInput(input);
+        ImageReadParam param = reader.getDefaultReadParam();
+        BufferedImage bi = reader.read(0, param);
+
+        //Read the image raster
+        //Raster raster = reader.readRaster(0, null);
+
+        //Create a new RGB image
+        //BufferedImage bi = new BufferedImage(raster.getWidth(), raster.getHeight(),
+        //        BufferedImage.TYPE_4BYTE_ABGR);
+
+        //Fill the new image with the old raster
+        //bi.getRaster().setRect(raster);
+        return bi;
+    }
+
+    public static void processPageSteam(String url, List<Game> games, String platform) throws IOException {
         //connect to video games category
+        List<Game> tempGames = new LinkedList<Game>();
+
         Document doc = Jsoup.connect(url).timeout(0).get();
         Elements products = doc.select("div.responsive_search_name_combined");
         for (Element product : products) {
@@ -101,8 +164,23 @@ public class Crawler {
                 regularPrice = Double.parseDouble(regularPriceString);
                 salesPrice = Double.parseDouble(salesPriceString);
             }
-            Game game = new Game(title, "PC", regularPrice, salesPrice);
+            Game game = new Game(title, title, platform, regularPrice);
+            game.addSalesPrice("Steam", salesPrice);
+            tempGames.add(game);
         }
+        Elements covers = doc.select("div.col.search_capsule");
+        int index = 0;
+        for (Element cover : covers) {
+            String imgUrl = cover.select("img").attr("abs:src");
+            BufferedImage img = getImage(imgUrl);
+            if (img != null) {
+                tempGames.get(index).setCover(imageToString(img));
+            }
+            index++;
+        }
+        // append the list of games to the end of the games list
+        games.addAll(tempGames);
+
         String nextUrl = "";
         Elements pages = doc.select("div.search_pagination_right").select("a");
         boolean isButton = false;
@@ -112,13 +190,8 @@ public class Crawler {
                 isButton = true;
             }
         }
-//        for (Element product : products) {
-//            System.out.println(product.select("span.title").text());
-//            System.out.println(product.select("div.col.search_price.responsive_secondrow").text());
-//        }
-
 
         if (!nextUrl.equals(url) && isButton)
-            processPageSteam(nextUrl);
+            processPageSteam(nextUrl, games, platform);
     }
 }
