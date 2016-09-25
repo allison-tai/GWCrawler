@@ -16,14 +16,13 @@ public class Crawler {
     public static void processPage(String url) throws IOException {
         //connect to video games category
         Document doc = Jsoup.connect(url).timeout(0).get();
-        Elements divs = doc.select("div");
-        List<Element> prods = new LinkedList<Element>();
-        for (Element div : divs) {
-            if (div.hasClass("prod-info"))
-                prods.add(div);
+        Elements products = doc.select("div.prod-info");
+        String nextUrl = doc.select("li.pagi-next").select("a").attr("abs:href");
+        for (Element product : products) {
+                System.out.println(product.select("h4.prod-title").text());
+                System.out.println(product.select("div.prodprice").text());
         }
-        for (Element prod : prods) {
-            System.out.println(prod.html());
-        }
+        if (!nextUrl.equals(url))
+            processPage(nextUrl);
     }
 }
