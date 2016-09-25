@@ -2,9 +2,6 @@ import java.awt.*;
 import java.io.File;
 import java.util.TreeMap;
 
-/**
- * Created by Lily on 2016-09-24.
- */
 public class Game {
         String _title;
         String _cover;
