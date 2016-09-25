@@ -33,7 +33,7 @@ public class Crawler {
                 // get image, price, platform
                 String imageUrl = product.select("div.prod-image").select("img").first().absUrl("src");
                 double price = Double.parseDouble(product.select("div.prodprice").text().replace('$', Character.MIN_VALUE));
-                Game game = new Game(title, price, platform);
+                Game game = new Game(title, platform, price, price);
                 game.setCover(getImage(imageUrl));
                 games.add(game);
             }
@@ -60,12 +60,26 @@ public class Crawler {
         Elements products = doc.select("div.responsive_search_name_combined");
         for (Element product : products) {
             Elements innerProduct = product.select("div.col.search_name.ellipsis");
-            System.out.println(innerProduct.select("span.title").text());
-            System.out.println(product.select("div.col.search_price.responsive_secondrow").text());
+            String title = innerProduct.select("span.title").text();
+            //System.out.println(innerProduct.select("span.title").text());
+            String priceString = product.select("div.col.search_price.responsive_secondrow").text();
+            double regularPrice = 0;
+            double salesPrice = 0;
+            if (priceString.charAt(0) != 'F') {
+                String prefix = priceString.substring(0, 5);
+                String rawPrices = priceString.replace(prefix, "");
+                String[] prices = rawPrices.split(" ");
+                String regularPriceString = prices[0];
+                String salesPriceString = regularPriceString;
+                if (prices.length > 1) {
+                    salesPriceString = prices[1];
+                }
+                regularPrice = Double.parseDouble(regularPriceString);
+                salesPrice = Double.parseDouble(salesPriceString);
+            }
+            Game game = new Game(title, "PC", regularPrice, salesPrice);
 
         }
-        //Elements products = doc.select("div.col.search_name.ellipsis");
-        //String nextUrl = doc.select("div.search_pagination_right").select("a").get(3).attr("abs:href");
         String nextUrl = "";
         Elements pages = doc.select("div.search_pagination_right").select("a");
         boolean isButton = false;

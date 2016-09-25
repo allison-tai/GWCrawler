@@ -7,7 +7,8 @@ import java.util.TreeMap;
  */
 public class Game {
         String _title;
-        double _price;
+        double _regularPrice;
+        double _salesPrice;
         Image _cover;
         String _platform;
 
@@ -15,10 +16,11 @@ public class Game {
 
         }
 
-        public Game(String title, double price, String platform) {
+        public Game(String title, String platform, double regularPrice, double salesPrice) {
             _title = title;
-            _price = price;
             _platform = platform;
+            _regularPrice = regularPrice;
+            _salesPrice = salesPrice;
         }
 
         public void setCover(Image cover) {
@@ -29,8 +31,12 @@ public class Game {
             _title = title;
         }
 
-        public void setPrice(double price) {
-            _price = price;
+        public void setRegularPrice(double regularPrice) {
+            _regularPrice = regularPrice;
+        }
+
+        public void setSalesPrice(double salesPrice) {
+            _salesPrice = salesPrice;
         }
 
         public void setPlatform(String platform) {
@@ -41,8 +47,12 @@ public class Game {
             return _title;
         }
 
-        public double getPrice() {
-            return _price;
+        public double getRegularPrice() {
+            return _regularPrice;
+        }
+
+        public double getSalesPrice() {
+            return _salesPrice;
         }
 
         public Image getCover() {
