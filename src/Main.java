@@ -1,7 +1,3 @@
-/**
- * Created by Lily on 2016-09-24.
- */
-
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.*;
@@ -25,9 +21,12 @@ public class Main {
 
         try {
             Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
+
+            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
         }
         catch (IOException e) {
         }
+
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setServiceAccount(new FileInputStream("src/GamerWatch-ac8c55766009.json"))
