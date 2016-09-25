@@ -53,7 +53,7 @@ public class Crawler {
                 String imageUrl = product.select("div.prod-image").select("img").first().absUrl("src");
                 double price = Double.parseDouble(product.select("div.prodprice").text().replace('$', Character.MIN_VALUE));
                 String title = productName.replaceAll("\\(.*\\)", "(" + platform + ")");
-                Game game = new Game(title, platform, price, price);
+                Game game = new Game(title, title, platform, price);
                 BufferedImage img = getImage(imageUrl);
                 if (img != null) {
                     game.setCover(imageToString(img));
@@ -153,7 +153,8 @@ public class Crawler {
                 regularPrice = Double.parseDouble(regularPriceString);
                 salesPrice = Double.parseDouble(salesPriceString);
             }
-            Game game = new Game(title, platform, regularPrice, salesPrice);
+            Game game = new Game(title, title, platform, regularPrice);
+            game.addSalesPrice("Steam", salesPrice);
             tempGames.add(game);
         }
         Elements covers = doc.select("div.col.search_capsule");
