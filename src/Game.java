@@ -7,14 +7,9 @@ import java.util.TreeMap;
  */
 public class Game {
         String _title;
-<<<<<<< HEAD
-        double _price;
         String _cover;
-=======
         double _regularPrice;
         double _salesPrice;
-        Image _cover;
->>>>>>> f819ab48c6b93b2b07530841a8715ffba13d5620
         String _platform;
 
         public Game() {
