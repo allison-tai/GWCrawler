@@ -26,18 +26,12 @@ public class Main {
             Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-one-games/35511.aspx?path=44a462b3cfb1dace048bd57666031870en01", games, "XBoxOne");
             Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-360/23393.aspx?path=002f08194a4d0cb1d05cb0c739e6262ben01", games, "XBox360");
             Crawler.processPage("http://www.bestbuy.ca/en-CA/category/pc-games/21136.aspx?path=986beba798dde00c1554f6bae338c9d3en01", games, "PC");
+
+            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
         }
         // TODO: Populate the Steam list
         // TODO: Populate the game list using combination of Bestbuy and Steam?
 
-<<<<<<< HEAD
-=======
-        try {
-            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
-
-            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
-        }
->>>>>>> 70441675d871ffa8e73fb38bb5c1574cf27a12e7
         catch (IOException e) {
         }
 
