@@ -3,19 +3,35 @@
  */
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.regex.*;
 
+import org.apache.commons.io.IOUtils;
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 
 public class Crawler {
+
+    public static void bbCrawl(List<Game> games) throws IOException {
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation-4-games/33934.aspx?path=f7745ff8832df8fd7aa9509ae18c8934en01", games, "PS4");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation-3/24334.aspx?path=97b55ed0c4ce4600a8ae66201e9d8a7fen01", games, "PS3");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-wii-u-games/32276.aspx?path=c2e0396bf4fabe11f83eee8998743759en01", games, "WiiU");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-wii-games/24336.aspx?path=fdd5fd017035e25b90dbe5c1b3ecf623en01", games, "Wii");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-handheld/621901.aspx?path=5aca53d7b7bff9cd44b0c3588418d6b8en01", games, "3DS");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-ds-games/22026.aspx?path=b3bec2624c13240ee715674a36bcce48en01", games, "DS");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-one-games/35511.aspx?path=44a462b3cfb1dace048bd57666031870en01", games, "XBoxOne");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-360/23393.aspx?path=002f08194a4d0cb1d05cb0c739e6262ben01", games, "XBox360");
+            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/pc-games/21136.aspx?path=986beba798dde00c1554f6bae338c9d3en01", games, "PC");
+    }
 
     public static List<Game> processPage(String url, List<Game> games, String platform) throws IOException {
         String titlePattern = ".*\\s\\(.*\\).*";
@@ -27,31 +43,34 @@ public class Crawler {
         String nextUrl = doc.select("li.pagi-next").select("a").attr("abs:href");
         // Make game objects
         for (Element product : products) {
-            String title = product.select("h4.prod-title").text();
-            Matcher m = pattern.matcher(title);
+            String productName = product.select("h4.prod-title").text();
+            Matcher m = pattern.matcher(productName);
             if (m.find()) {
                 // get image, price, platform
                 String imageUrl = product.select("div.prod-image").select("img").first().absUrl("src");
                 double price = Double.parseDouble(product.select("div.prodprice").text().replace('$', Character.MIN_VALUE));
+                String title = productName.replaceAll("\\(.*\\)", "(" + platform + ")");
                 Game game = new Game(title, price, platform);
-                game.setCover(getImage(imageUrl));
+                game.setCover(imageToString(getImage(imageUrl)));
                 games.add(game);
             }
         }
-        if (!nextUrl.equals(url))
-            processPage(nextUrl, games, platform);
+        //if (!nextUrl.equals(url))
+            //processPage(nextUrl, games, platform);
         return games;
     }
 
-    public static Image getImage(String url) {
-        try {
-            Image image = ImageIO.read(new URL(url)).getScaledInstance(100, 100, BufferedImage.SCALE_SMOOTH);
-            return image;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static String imageToString(BufferedImage image) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", output);
+        byte[] imageBytes = output.toByteArray();
+        return DatatypeConverter.printBase64Binary(imageBytes);
+    }
+
+
+    public static BufferedImage getImage(String url) throws IOException{
+        BufferedImage image = ImageIO.read(new URL(url));
+        return image;
     }
 
     public static void processPageSteam(String url) throws IOException {
@@ -62,7 +81,6 @@ public class Crawler {
             Elements innerProduct = product.select("div.col.search_name.ellipsis");
             System.out.println(innerProduct.select("span.title").text());
             System.out.println(product.select("div.col.search_price.responsive_secondrow").text());
-
         }
         //Elements products = doc.select("div.col.search_name.ellipsis");
         //String nextUrl = doc.select("div.search_pagination_right").select("a").get(3).attr("abs:href");
