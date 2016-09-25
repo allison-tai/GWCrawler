@@ -7,26 +7,57 @@ import java.util.TreeMap;
  */
 public class Game {
         String _title;
+<<<<<<< HEAD
         double _price;
         String _cover;
+=======
+        double _regularPrice;
+        double _salesPrice;
+        Image _cover;
+>>>>>>> f819ab48c6b93b2b07530841a8715ffba13d5620
         String _platform;
 
-        public Game(String title, double price, String platform) {
+        public Game() {
+
+        }
+
+        public Game(String title, String platform, double regularPrice, double salesPrice) {
             _title = title;
-            _price = price;
             _platform = platform;
+            _regularPrice = regularPrice;
+            _salesPrice = salesPrice;
         }
 
         public void setCover(String cover) {
             _cover = cover;
         }
 
+        public void setTitle(String title) {
+            _title = title;
+        }
+
+        public void setRegularPrice(double regularPrice) {
+            _regularPrice = regularPrice;
+        }
+
+        public void setSalesPrice(double salesPrice) {
+            _salesPrice = salesPrice;
+        }
+
+        public void setPlatform(String platform) {
+            _platform = platform;
+        }
+
         public String getTitle() {
             return _title;
         }
 
-        public double getPrice() {
-            return _price;
+        public double getRegularPrice() {
+            return _regularPrice;
+        }
+
+        public double getSalesPrice() {
+            return _salesPrice;
         }
 
         public String getCover() {
