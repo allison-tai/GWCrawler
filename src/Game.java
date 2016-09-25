@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.File;
 import java.util.TreeMap;
 
@@ -7,7 +8,7 @@ import java.util.TreeMap;
 public class Game {
         String _title;
         double _price;
-        String _cover;
+        Image _cover;
         String _platform;
 
         public Game() {
@@ -20,7 +21,7 @@ public class Game {
             _platform = platform;
         }
 
-        public void setCover(String cover) {
+        public void setCover(Image cover) {
             _cover = cover;
         }
 
@@ -44,7 +45,7 @@ public class Game {
             return _price;
         }
 
-        public String getCover() {
+        public Image getCover() {
             return _cover;
         }
 

@@ -19,13 +19,13 @@ public class Main {
 
         // TODO: Populate the game list using combination of Bestbuy and Steam?
 
-        //try {
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
+        try {
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation/621715.aspx");
 
-            //Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
-        //}
-        //catch (IOException e) {
-        //}
+            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
+        }
+        catch (IOException e) {
+        }
 
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
