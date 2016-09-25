@@ -13,7 +13,6 @@ public class Game {
         String _platform;
 
         public Game() {
-
         }
 
         public Game(String title, String platform, double regularPrice, double salesPrice) {

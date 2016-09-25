@@ -14,7 +14,7 @@ public class Main {
         List<Game> games = new LinkedList<Game>();
         try {
             // TODO: Populate the Steam list
-            Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
+          //  Crawler.processPageSteam("http://store.steampowered.com/search/?sort_by=Reviews_DESC&category1=998&os=win");
             // TODO: Populate BestBuy list
             Crawler.bbCrawl(games);
         }

@@ -3,7 +3,6 @@
  */
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -23,14 +22,14 @@ public class Crawler {
 
     public static void bbCrawl(List<Game> games) throws IOException {
             Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation-4-games/33934.aspx?path=f7745ff8832df8fd7aa9509ae18c8934en01", games, "PS4");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation-3/24334.aspx?path=97b55ed0c4ce4600a8ae66201e9d8a7fen01", games, "PS3");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-wii-u-games/32276.aspx?path=c2e0396bf4fabe11f83eee8998743759en01", games, "WiiU");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-wii-games/24336.aspx?path=fdd5fd017035e25b90dbe5c1b3ecf623en01", games, "Wii");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-handheld/621901.aspx?path=5aca53d7b7bff9cd44b0c3588418d6b8en01", games, "3DS");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-ds-games/22026.aspx?path=b3bec2624c13240ee715674a36bcce48en01", games, "DS");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-one-games/35511.aspx?path=44a462b3cfb1dace048bd57666031870en01", games, "XBoxOne");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-360/23393.aspx?path=002f08194a4d0cb1d05cb0c739e6262ben01", games, "XBox360");
-            //Crawler.processPage("http://www.bestbuy.ca/en-CA/category/pc-games/21136.aspx?path=986beba798dde00c1554f6bae338c9d3en01", games, "PC");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/playstation-3/24334.aspx?path=97b55ed0c4ce4600a8ae66201e9d8a7fen01", games, "PS3");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-wii-u-games/32276.aspx?path=c2e0396bf4fabe11f83eee8998743759en01", games, "WiiU");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-wii-games/24336.aspx?path=fdd5fd017035e25b90dbe5c1b3ecf623en01", games, "Wii");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-3ds-3ds-xl-2ds-games/30237.aspx?path=d6f7925a60b0dadc449d89c3cc84e01aen01", games, "3DS");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/nintendo-ds-games/22026.aspx?path=b3bec2624c13240ee715674a36bcce48en01", games, "DS");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-one-games/35511.aspx?path=44a462b3cfb1dace048bd57666031870en01", games, "XBoxOne");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/xbox-360/23393.aspx?path=002f08194a4d0cb1d05cb0c739e6262ben01", games, "XBox360");
+            Crawler.processPage("http://www.bestbuy.ca/en-CA/category/pc-games/21136.aspx?path=986beba798dde00c1554f6bae338c9d3en01", games, "PC");
     }
 
     public static List<Game> processPage(String url, List<Game> games, String platform) throws IOException {
@@ -48,15 +47,21 @@ public class Crawler {
             if (m.find()) {
                 // get image, price, platform
                 String imageUrl = product.select("div.prod-image").select("img").first().absUrl("src");
-                double price = Double.parseDouble(product.select("div.prodprice").text().replace('$', Character.MIN_VALUE));
+                double curPrice = Double.parseDouble(product.select("div.prodprice").text().replace('$', Character.MIN_VALUE));
+                double regPrice = curPrice;
+                Elements saleInfo = product.select("div.prod-saving");
+                if (!saleInfo.isEmpty())
+                    regPrice = Double.parseDouble((saleInfo.select("span").last().text().replace('$', Character.MIN_VALUE)) + curPrice);
                 String title = productName.replaceAll("\\(.*\\)", "(" + platform + ")");
-                Game game = new Game(title, platform, price, price);
+                Game game = new Game(title, platform, curPrice, regPrice);
                 game.setCover(imageToString(getImage(imageUrl)));
                 games.add(game);
             }
         }
         //if (!nextUrl.equals(url))
             //processPage(nextUrl, games, platform);
+        System.out.println("Finished adding " + platform + " games\n");
+        System.out.println("Added " + games.size() + " games");
         return games;
     }
 
