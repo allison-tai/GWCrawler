@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-    
+
 public class Main {
     public static void main( String[] args )
     {
@@ -37,9 +37,9 @@ public class Main {
 
             final DatabaseReference bbRef = FirebaseDatabase
                     .getInstance()
-                    .getReference("game");
+                    .getReference("prod");
                 for (Game game: games) {
-                    bbRef.child(game.getTitle()).setValue(game);
+                    bbRef.child(game.getId()).setValue(game);
                 }
 
             ref.orderByChild("title").addChildEventListener(new ChildEventListener() {

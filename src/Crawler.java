@@ -5,10 +5,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.*;
 
 import org.jsoup.*;
@@ -57,7 +61,14 @@ public class Crawler {
                 if (!saleInfo.isEmpty())
                     regPrice = Double.parseDouble((saleInfo.select("span").last().text().replace('$', Character.MIN_VALUE)) + curPrice);
                 String title = productName.replaceAll("\\(.*\\)", "(" + platform + ")");
-                Game game = new Game(title, title, platform, regPrice);
+                String hashTitle = title;
+                try {
+                    hashTitle = md5HashGen(title);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Game game = new Game(hashTitle, title, platform, regPrice);
                 game.addSalesPrice("bestbuy", curPrice);
                 BufferedImage img = getImage(imageUrl);
                 if (img != null) {
@@ -71,6 +82,11 @@ public class Crawler {
         System.out.println("Finished adding " + platform + " games\n");
         System.out.println("Added " + games.size() + " games");
         return games;
+    }
+
+    public static String md5HashGen(String title) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        return DatatypeConverter.printHexBinary(md.digest(title.getBytes()));
     }
 
     public static String imageToString(BufferedImage image) throws IOException {
